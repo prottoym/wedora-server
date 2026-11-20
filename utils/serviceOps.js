@@ -6,7 +6,7 @@ export const countActiveServices = (vendorId) =>
     .collection("services")
     .countDocuments({ vendorId, isActive: true, status: { $ne: "rejected" } });
 
-// service delete hole tar pending booking gulo cancelled hoye jabe
+
 export async function deleteServiceCascade(serviceId) {
   const db = getDb();
   await db
@@ -18,7 +18,7 @@ export async function deleteServiceCascade(serviceId) {
   await db.collection("services").deleteOne({ _id: serviceId });
 }
 
-// Premium shesh hole shobcheye purono 3ta active thakbe, baki inactive
+
 export async function enforceFreeLimit(vendorId) {
   const services = getDb().collection("services");
   const base = { vendorId, isActive: true, status: { $ne: "rejected" } };
