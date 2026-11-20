@@ -171,7 +171,7 @@ router.delete(
   }),
 );
 
-/* ---------- Transactions (shudhu read, edit korar route-i nai) ---------- */
+/* ---------- Transactions ---------- */
 router.get(
   "/transactions",
   asyncHandler(async (req, res) => {
