@@ -6,14 +6,14 @@ import { asyncHandler, httpError, isId, oid, validate } from "../utils/helpers.j
 import { lookupOne } from "../utils/pipelines.js";
 
 const router = Router();
-// admin booking korte pabe na. Vendor onner service book korte pare, nijerta na.
+// admin booking
 router.use(verifyToken, requireRole("customer", "vendor"));
 
 const validDay = (v) => {
   const d = new Date(`${v}T00:00:00Z`);
   return !Number.isNaN(d.getTime()) && d.toISOString().startsWith(v);
 };
-// timezone er jonno 1 din slack
+// timezone 
 const minDate = () => new Date(Date.now() - 24 * 60 * 60 * 1000).toISOString().slice(0, 10);
 
 const bookingSchema = z.object({
@@ -54,8 +54,8 @@ router.post(
     const now = new Date();
     const doc = {
       serviceId: service._id,
-      vendorId: service.vendorId, // service theke, client theke na
-      customerId: req.user._id, // token theke
+      vendorId: service.vendorId, 
+      customerId: req.user._id, // token 
       eventDate: data.eventDate,
       eventLocation: data.eventLocation,
       message: data.message,
