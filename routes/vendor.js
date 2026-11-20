@@ -94,9 +94,9 @@ router.post(
 
     const now = new Date();
     const doc = {
-      vendorId: req.user._id, // client theke kokhono nibo na
+      vendorId: req.user._id, 
       ...data,
-      status: "pending", // admin approve korbe
+      status: "pending", // admin approve then
       isActive: true,
       createdAt: now,
       updatedAt: now,
@@ -110,10 +110,10 @@ router.patch(
   "/services/:id",
   asyncHandler(async (req, res) => {
     const service = await getOwnService(req);
-    const data = validate(updateSchema, req.body); // status/vendorId zod strip kore dey
+    const data = validate(updateSchema, req.body); 
     if (!Object.keys(data).length) throw httpError(400, "Nothing to update");
 
-    // abar active korle free limit check
+    //  free limit check
     if (
       data.isActive === true &&
       !service.isActive &&
@@ -125,7 +125,6 @@ router.patch(
     }
 
     const set = { ...data, updatedAt: new Date() };
-    // rejected service edit korle abar review er jonno pending hoy
     const contentChanged = Object.keys(data).some((k) => k !== "isActive");
     if (service.status === "rejected" && contentChanged) set.status = "pending";
 
@@ -185,7 +184,7 @@ router.patch(
       throw httpError(403, "This booking belongs to another vendor");
     }
 
-    // shudhu pending hole-i update hobe (race condition safe)
+    
     const result = await bookings.updateOne(
       { _id: booking._id, status: "pending" },
       { $set: { status, updatedAt: new Date() } },
