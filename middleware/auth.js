@@ -26,7 +26,7 @@ export async function verifyToken(req, res, next) {
     const id = payload.sub ?? payload.id;
     if (!isId(id)) return res.status(401).json({ message: "Invalid token" });
 
-    // role / isBlocked token theke na, database theke nibo
+    // role 
     const user = await getDb().collection("user").findOne({ _id: new ObjectId(id) });
     if (!user) return res.status(401).json({ message: "User not found" });
     if (user.isBlocked) {
