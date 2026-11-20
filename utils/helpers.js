@@ -17,11 +17,11 @@ export function validate(schema, data) {
   return result.data;
 }
 
-// ObjectId.isValid("123456789012") true dey (12 char string), tai strict check
+
 export const isId = (v) => typeof v === "string" && /^[a-f0-9]{24}$/i.test(v);
 export const oid = (v) => new ObjectId(v);
 
-// query param array/object hole NoSQL injection hoy, tai shudhu string nibo
+
 export const str = (v) => (typeof v === "string" ? v.trim() : "");
 export const escapeRegex = (s) => s.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
 
